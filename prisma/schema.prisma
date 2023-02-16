@@ -1,0 +1,40 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model exercices {
+  id             Int    @id(map: "exercices_pk") @default(autoincrement())
+  nameExerc      String @unique @db.VarChar(255)
+  bodyPart       String @unique @db.VarChar(255)
+  classification String @db.VarChar(255)
+  list           list[]
+}
+
+model list {
+  id          Int      @id @default(autoincrement())
+  idExerc     Int
+  idSeries    Int
+  idTechnique Int
+  exercices   exercices @relation(fields: [idExerc], references: [id])
+  series      series    @relation(fields: [idSeries], references: [id])
+  technique   technique @relation(fields: [idTechnique], references: [id])
+}
+
+model series {
+  id           Int    @id @default(autoincrement())
+  numberSeries Int
+  numberRep    Int?
+  list         list[]
+}
+
+model technique {
+  id            Int     @id @default(autoincrement())
+  nameTechnique String? @db.VarChar(255)
+  Description   String?
+  list          list[]
+}
