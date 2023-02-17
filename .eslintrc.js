@@ -51,6 +51,7 @@ module.exports = {
     semi: ["error", "always"],
     "no-console": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/type-annotation-spacing": "warn",
     "comma-spacing": ["error", { before: false, after: true }],
     "semi-spacing": ["error", { before: false, after: true }],
     "object-curly-spacing": ["error", "always"],
@@ -79,7 +80,6 @@ module.exports = {
         },
       },
     ],
-    "@typescript-eslint/type-annotation-spacing": ["error", { after: true, before: false }],
     "arrow-spacing": ["error", { before: true, after: true }],
     "boundaries/element-types": [
       2,
