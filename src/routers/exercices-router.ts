@@ -1,7 +1,8 @@
-import { exercicePost } from "@/controllers/exercices-controller";
-import { validateBody } from "@/middlewares/validation-middleware";
-import { createExercice } from "@/schemas/exercices-schema";
 import { Router } from "express";
+
+import { exercicePost } from "@/controllers";
+import { validateBody } from "@/middlewares";
+import { createExercice } from "@/schemas";
 
 const exercicesRouter = Router();
 

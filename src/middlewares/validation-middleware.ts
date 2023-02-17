@@ -1,5 +1,6 @@
-import { ObjectSchema } from "joi";
 import { NextFunction, Request, Response } from "express";
+import httpStatus from "http-status";
+import { ObjectSchema } from "joi";
 
 export function validateBody<T>(schema: ObjectSchema<T>): ValidationMiddleware {
   return validate(schema, "body");
@@ -14,7 +15,7 @@ function validate(schema: ObjectSchema, type: "body" | "params") {
     if (!error) {
       next();
     } else {
-      res.sendStatus(400);
+      res.status(httpStatus.BAD_REQUEST);
     }
   };
 }
