@@ -8,18 +8,18 @@ datasource db {
 }
 
 model exercices {
-  id             Int    @id(map: "exercices_pk") @default(autoincrement())
-  nameExerc      String @unique @db.VarChar(255)
-  bodyPart       String @unique @db.VarChar(255)
-  classification String @db.VarChar(255)
+  id             Int     @id(map: "exercices_pk") @default(autoincrement())
+  nameExerc      String  @unique @db.VarChar(255)
+  bodyPart       String  @db.VarChar(255)
+  classification String? @db.VarChar(255)
   list           list[]
 }
 
 model list {
-  id          Int      @id @default(autoincrement())
   idExerc     Int
   idSeries    Int
   idTechnique Int
+  id          Int       @id @default(autoincrement())
   exercices   exercices @relation(fields: [idExerc], references: [id])
   series      series    @relation(fields: [idSeries], references: [id])
   technique   technique @relation(fields: [idTechnique], references: [id])
