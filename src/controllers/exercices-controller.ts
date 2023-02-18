@@ -21,3 +21,13 @@ export async function exercicePost(req: Request, res: Response) {
     return res.status(httpStatus.BAD_REQUEST).send(error.message);
   }
 }
+
+export async function exercicesGet(req: Request, res: Response) {
+  try {
+    const listExercices = await exercicesService.findExercices();
+
+    return res.status(httpStatus.OK).send(listExercices);
+  } catch (error) {
+    return res.status(httpStatus.NOT_FOUND).send(error.message);
+  }
+}

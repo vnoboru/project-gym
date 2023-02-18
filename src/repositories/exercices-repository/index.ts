@@ -21,9 +21,14 @@ async function create(data: Prisma.exercicesUncheckedCreateInput) {
   });
 }
 
+async function find() {
+  return prisma.exercices.findMany();
+}
+
 const exercicesRepository = {
   findByNameExerc,
   create,
+  find,
 };
 
 export default exercicesRepository;

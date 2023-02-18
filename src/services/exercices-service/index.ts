@@ -20,10 +20,16 @@ async function validateUniqueExerc(nameExerc: string) {
   }
 }
 
-export type CreateExercParams = Pick<exercices, "nameExerc" | "bodyPart" | "classification">;
+async function findExercices() {
+  const listExercices = await exercicesRepository.find();
 
+  return listExercices;
+}
+
+export type CreateExercParams = Pick<exercices, "nameExerc" | "bodyPart" | "classification">;
 const exercicesService = {
   createExercice,
+  findExercices,
 };
 
 export default exercicesService;
