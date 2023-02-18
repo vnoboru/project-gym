@@ -1,7 +1,8 @@
-import { seriesPost } from "@/controllers/series-controller";
+import { Router } from "express";
+
+import { seriesPost } from "@/controllers";
 import { validateBody } from "@/middlewares";
 import { createSeries } from "@/schemas";
-import { Router } from "express";
 
 const seriesRouter = Router();
 

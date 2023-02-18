@@ -13,6 +13,6 @@ export async function seriesPost(req: Request, res: Response) {
       numberRep: series.numberRep,
     });
   } catch (error) {
-    return res.status(httpStatus.BAD_REQUEST).send(error);
+    return res.status(httpStatus.BAD_REQUEST).send(error.message);
   }
 }

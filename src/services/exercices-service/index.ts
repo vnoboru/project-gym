@@ -13,7 +13,7 @@ export async function createExercice({ nameExerc, bodyPart, classification }: Cr
 }
 
 async function validateUniqueExerc(nameExerc: string) {
-  const exerciceWithSameName = await exercicesRepository.findByName(nameExerc);
+  const exerciceWithSameName = await exercicesRepository.findByNameExerc(nameExerc);
 
   if (exerciceWithSameName) {
     throw duplicatedExerciceError();

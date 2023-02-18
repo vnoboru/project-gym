@@ -28,13 +28,13 @@ model list {
 model series {
   id           Int    @id @default(autoincrement())
   numberSeries Int
-  numberRep    Int?
+  numberRep    String @db.VarChar(255)
   list         list[]
 }
 
 model technique {
   id            Int     @id @default(autoincrement())
-  nameTechnique String? @db.VarChar(255)
-  Description   String?
+  nameTechnique String? @unique @db.VarChar(255)
+  description   String? @db.VarChar(4000)
   list          list[]
 }

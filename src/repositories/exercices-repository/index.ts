@@ -1,7 +1,7 @@
 import { prisma } from "@/config";
 import { Prisma } from "@prisma/client";
 
-async function findByName(nameExerc: string, select?: Prisma.exercicesSelect) {
+async function findByNameExerc(nameExerc: string, select?: Prisma.exercicesSelect) {
   const params: Prisma.exercicesFindUniqueOrThrowArgs = {
     where: {
       nameExerc,
@@ -22,7 +22,7 @@ async function create(data: Prisma.exercicesUncheckedCreateInput) {
 }
 
 const exercicesRepository = {
-  findByName,
+  findByNameExerc,
   create,
 };
 
