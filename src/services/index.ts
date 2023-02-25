@@ -1,3 +1,2 @@
-export * from "./exercices-service";
-export * from "./series-service";
+export * from "./exercises-service";
 export * from "./technique-service";

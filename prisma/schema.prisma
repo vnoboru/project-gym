@@ -1,40 +1,36 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  output          = "../node_modules/.prisma/client"
+  previewFeatures = ["postgresqlExtensions"]
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider   = "postgresql"
+  url        = env("DATABASE_URL")
+  extensions = [citext]
 }
 
-model exercices {
-  id             Int     @id(map: "exercices_pk") @default(autoincrement())
-  nameExerc      String  @unique @db.VarChar(255)
-  bodyPart       String  @db.VarChar(255)
+model exercises {
+  id             Int     @id @default(autoincrement())
+  nameExerc      String  @unique @db.Citext
+  bodyPart       String? @db.Citext
   classification String? @db.VarChar(255)
   list           list[]
 }
 
 model list {
-  idExerc     Int
-  idSeries    Int
-  idTechnique Int
   id          Int       @id @default(autoincrement())
-  exercices   exercices @relation(fields: [idExerc], references: [id])
-  series      series    @relation(fields: [idSeries], references: [id])
+  idExerc     Int
+  idTechnique Int
+  exercices   exercises @relation(fields: [idExerc], references: [id])
   technique   technique @relation(fields: [idTechnique], references: [id])
-}
-
-model series {
-  id           Int    @id @default(autoincrement())
-  numberSeries Int
-  numberRep    String @db.VarChar(255)
-  list         list[]
 }
 
 model technique {
   id            Int     @id @default(autoincrement())
-  nameTechnique String? @unique @db.VarChar(255)
+  nameTechnique String? @unique @db.Citext
   description   String? @db.VarChar(4000)
+  numberSeries  String? @db.VarChar(255)
+  numberRep     String? @db.VarChar(255)
   list          list[]
 }

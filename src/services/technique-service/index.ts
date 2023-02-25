@@ -2,12 +2,19 @@ import techniqueRepository from "@/repositories/technique-repository";
 import { technique } from "@prisma/client";
 import { duplicatedExerciceError } from "./errors";
 
-export async function createTechnique({ nameTechnique, description }: CreateTechniqueParams): Promise<technique> {
+export async function createTechnique({
+  nameTechnique,
+  description,
+  numberSeries,
+  numberRep,
+}: CreateTechniqueParams): Promise<technique> {
   await validateUniqueNameTechnique(nameTechnique);
 
   return techniqueRepository.create({
     nameTechnique,
     description,
+    numberSeries,
+    numberRep,
   });
 }
 
@@ -19,7 +26,7 @@ async function validateUniqueNameTechnique(nameTechnique: string) {
   }
 }
 
-export type CreateTechniqueParams = Pick<technique, "nameTechnique" | "description">;
+export type CreateTechniqueParams = Pick<technique, "nameTechnique" | "description" | "numberSeries" | "numberRep">;
 
 const techniqueServices = {
   createTechnique,

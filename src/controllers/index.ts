@@ -1,3 +1,2 @@
-export * from "./exercices-controller";
-export * from "./series-controller";
+export * from "./exercises-controller";
 export * from "./technique-controller";
