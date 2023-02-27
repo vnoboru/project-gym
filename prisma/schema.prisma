@@ -13,6 +13,7 @@ datasource db {
 model exercises {
   id             Int     @id @default(autoincrement())
   nameExerc      String  @unique @db.Citext
+  nameExercAc    String? @unique @db.Citext
   bodyPart       String? @db.Citext
   classification String? @db.VarChar(255)
   list           list[]

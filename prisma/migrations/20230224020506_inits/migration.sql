@@ -5,6 +5,7 @@ CREATE EXTENSION IF NOT EXISTS "citext";
 CREATE TABLE "exercises" (
   "id" SERIAL NOT NULL,
   "nameExerc" CITEXT NOT NULL,
+  "nameExercAc" CITEXT,
   "bodyPart" CITEXT,
   "classification" VARCHAR(255),
   CONSTRAINT "exercises_pkey" PRIMARY KEY ("id")
@@ -46,18 +47,23 @@ ALTER TABLE
 ADD
   CONSTRAINT "list_idTechnique_fkey" FOREIGN KEY ("idTechnique") REFERENCES "technique"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
-CREATE COLLATION special(
+CREATE COLLATION ignore_accent (
   provider = icu,
-  locale = 'en-u-ks-level1',
+  locale = 'und-u-ks-level1-kc-true',
   deterministic = false
 );
 
 ALTER TABLE
   exercises
 ALTER COLUMN
-  "nameExerc" TYPE citext COLLATE special;
+  "nameExerc" TYPE citext COLLATE ignore_accent;
 
 ALTER TABLE
   technique
 ALTER COLUMN
-  "nameTechnique" TYPE citext COLLATE special;
+  "nameTechnique" TYPE citext COLLATE ignore_accent;
+
+ALTER TABLE
+  exercises
+ALTER COLUMN
+  "nameExercAc" TYPE citext COLLATE ignore_accent;

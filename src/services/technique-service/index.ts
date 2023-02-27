@@ -1,6 +1,6 @@
 import techniqueRepository from "@/repositories/technique-repository";
 import { technique } from "@prisma/client";
-import { duplicatedExerciceError } from "./errors";
+import { duplicatedExerciseError } from "./errors";
 
 export async function createTechnique({
   nameTechnique,
@@ -22,7 +22,7 @@ async function validateUniqueNameTechnique(nameTechnique: string) {
   const techniqueWithSameName = await techniqueRepository.findByNameTechnique(nameTechnique);
 
   if (techniqueWithSameName) {
-    throw duplicatedExerciceError();
+    throw duplicatedExerciseError();
   }
 }
 
