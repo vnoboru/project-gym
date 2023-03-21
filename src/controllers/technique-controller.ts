@@ -1,11 +1,11 @@
-import { techniqueServices } from "@/services";
+import { techniqueService } from "@/services";
 import { Request, Response } from "express";
 import httpStatus from "http-status";
 
 export async function techniquePost(req: Request, res: Response) {
   const { nameTechnique, description, numberSeries, numberRep } = req.body;
   try {
-    const technique = await techniqueServices.createTechnique({ nameTechnique, description, numberSeries, numberRep });
+    const technique = await techniqueService.createTechnique({ nameTechnique, description, numberSeries, numberRep });
 
     return res.status(httpStatus.CREATED).json({
       id: technique.id,
@@ -15,10 +15,45 @@ export async function techniquePost(req: Request, res: Response) {
       numberRep: technique.numberRep,
     });
   } catch (error) {
-    if (error.name === "DuplicatedExerciceError") {
+    if (error.name === "ConflictError") {
       return res.status(httpStatus.CONFLICT).send(error.message);
     }
 
     return res.status(httpStatus.BAD_REQUEST).send(error.message);
+  }
+}
+
+export async function techniquePut(req: Request, res: Response) {
+  const techniqueId = Number(req.params.techniqueId);
+  const { nameTechnique, description, numberSeries, numberRep } = req.body;
+
+  try {
+    const updatedTechnique = await techniqueService.putTechnique(techniqueId, {
+      nameTechnique,
+      description,
+      numberSeries,
+      numberRep,
+    });
+    return res.status(httpStatus.OK).send(updatedTechnique);
+  } catch (error) {
+    if (error.name === "NotFoundExerciseError") {
+      return res.status(httpStatus.NOT_FOUND).send(error.message);
+    }
+
+    return res.status(httpStatus.BAD_REQUEST).send(error);
+  }
+}
+
+export async function techniquesGet(req: Request, res: Response) {
+  try {
+    const listTechniques = await techniqueService.findTechniques();
+
+    return res.status(httpStatus.OK).send(listTechniques);
+  } catch (error) {
+    if (error.name === "NotFoundError") {
+      return res.status(httpStatus.NOT_FOUND).send(error.message);
+    }
+
+    return res.sendStatus(httpStatus.BAD_REQUEST);
   }
 }

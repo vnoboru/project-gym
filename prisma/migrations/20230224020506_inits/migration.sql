@@ -23,6 +23,7 @@ CREATE TABLE "list" (
 CREATE TABLE "technique" (
   "id" SERIAL NOT NULL,
   "nameTechnique" CITEXT,
+  "nameTechniqueAc" CITEXT,
   "description" VARCHAR(4000),
   "numberSeries" VARCHAR(255),
   "numberRep" VARCHAR(255),
@@ -67,3 +68,8 @@ ALTER TABLE
   exercises
 ALTER COLUMN
   "nameExercAc" TYPE citext COLLATE ignore_accent;
+
+ALTER TABLE
+  technique
+ALTER COLUMN
+  "nameTechniqueAc" TYPE citext COLLATE ignore_accent;

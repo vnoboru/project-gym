@@ -28,10 +28,11 @@ model list {
 }
 
 model technique {
-  id            Int     @id @default(autoincrement())
-  nameTechnique String? @unique @db.Citext
-  description   String? @db.VarChar(4000)
-  numberSeries  String? @db.VarChar(255)
-  numberRep     String? @db.VarChar(255)
-  list          list[]
+  id              Int     @id @default(autoincrement())
+  nameTechnique   String?  @unique @db.Citext
+  nameTechniqueAc String? @unique @db.Citext
+  description     String? @db.VarChar(4000)
+  numberSeries    String? @db.VarChar(255)
+  numberRep       String? @db.VarChar(255)
+  list            list[]
 }
