@@ -46,7 +46,7 @@ async function update(techniqueId: number, data: Prisma.techniqueUncheckedUpdate
 }
 
 async function find() {
-  return prisma.exercises.findMany();
+  return prisma.technique.findMany();
 }
 const techniqueRepository = {
   findByNameTechnique,

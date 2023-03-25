@@ -49,13 +49,13 @@ export async function putTechnique(
 }
 
 async function findTechniques() {
-  const listExercices = await techniqueRepository.find();
+  const listTechniques = await techniqueRepository.find();
 
-  if (!listExercices) {
+  if (!listTechniques) {
     throw notFoundError();
   }
 
-  return listExercices;
+  return listTechniques;
 }
 
 export type CreateTechniqueParams = Pick<technique, "nameTechnique" | "description" | "numberSeries" | "numberRep">;

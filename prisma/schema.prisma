@@ -20,16 +20,17 @@ model exercises {
 }
 
 model list {
-  id          Int       @id @default(autoincrement())
-  idExerc     Int
-  idTechnique Int
-  exercices   exercises @relation(fields: [idExerc], references: [id])
-  technique   technique @relation(fields: [idTechnique], references: [id])
+  id           Int       @id @default(autoincrement())
+  idExerc      Int
+  idTechnique  Int
+  daysTraining Int
+  exercices    exercises @relation(fields: [idExerc], references: [id])
+  technique    technique @relation(fields: [idTechnique], references: [id])
 }
 
 model technique {
   id              Int     @id @default(autoincrement())
-  nameTechnique   String?  @unique @db.Citext
+  nameTechnique   String? @unique @db.Citext
   nameTechniqueAc String? @unique @db.Citext
   description     String? @db.VarChar(4000)
   numberSeries    String? @db.VarChar(255)

@@ -1,6 +1,6 @@
 import { connectDb, disconnectDB } from "@/config";
 import { loadEnv } from "@/config/env";
-import { exercisesRouter, techniqueRouter } from "@/routers";
+import { exercisesRouter, listRouter, techniqueRouter } from "@/routers";
 import cors from "cors";
 import express, { Express } from "express";
 
@@ -13,7 +13,8 @@ app
   .use(express.json())
   .get("/test", (_req, res) => res.send("OK!"))
   .use("/exercise", exercisesRouter)
-  .use("/technique", techniqueRouter);
+  .use("/technique", techniqueRouter)
+  .use("/list", listRouter);
 
 export async function init(): Promise<Express> {
   connectDb();
