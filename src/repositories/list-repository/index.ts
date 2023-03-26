@@ -1,7 +1,10 @@
 import { prisma } from "@/config";
 
-async function find() {
+async function find(daysTraining: number) {
   return prisma.list.findMany({
+    where: {
+      daysTraining: daysTraining,
+    },
     include: {
       exercices: {
         select: {

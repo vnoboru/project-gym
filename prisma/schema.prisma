@@ -24,8 +24,10 @@ model list {
   idExerc      Int
   idTechnique  Int
   daysTraining Int
+  idTraining   Int
   exercices    exercises @relation(fields: [idExerc], references: [id])
   technique    technique @relation(fields: [idTechnique], references: [id])
+  training     training  @relation(fields: [idTraining], references: [id])
 }
 
 model technique {
@@ -36,4 +38,11 @@ model technique {
   numberSeries    String? @db.VarChar(255)
   numberRep       String? @db.VarChar(255)
   list            list[]
+}
+
+model training {
+  id             Int     @id @default(autoincrement())
+  nameTraining   String  @unique @db.Citext
+  nameTrainingAc String? @unique @db.Citext
+  list           list[]
 }
