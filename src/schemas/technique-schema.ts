@@ -1,8 +1,8 @@
 import Joi from "joi";
 
 export const createTechnique = Joi.object({
-  nameTechnique: Joi.string().required(),
-  description: Joi.string(),
-  numberSeries: Joi.string().required(),
-  numberRep: Joi.string().min(0),
+  nameTechnique: Joi.string().allow("").optional(),
+  description: Joi.string().allow("").optional(),
+  numberSeries: Joi.string().allow("").optional(),
+  numberRep: Joi.string().allow("").optional(),
 });
