@@ -3,7 +3,7 @@ import techniqueRepository from "@/repositories/technique-repository";
 import { technique } from "@prisma/client";
 import lodash from "lodash";
 
-export async function createTechnique({
+async function createTechnique({
   nameTechnique,
   description,
   numberSeries,
@@ -28,7 +28,7 @@ async function validateUniqueNameTechnique(nameTechnique: string) {
   }
 }
 
-export async function putTechnique(
+async function putTechnique(
   techniqueId: number,
   { nameTechnique, description, numberSeries, numberRep }: CreateTechniqueParams,
 ): Promise<technique> {
@@ -58,12 +58,25 @@ async function findTechniques() {
   return listTechniques;
 }
 
+async function deleteTechnique(techniqueId: number) {
+  const technique = await techniqueRepository.findByTechniqueId(techniqueId);
+
+  if (!technique) {
+    throw notFoundError();
+  }
+
+  const resultTechnique = await techniqueRepository.remove(techniqueId);
+
+  return resultTechnique;
+}
+
 export type CreateTechniqueParams = Pick<technique, "nameTechnique" | "description" | "numberSeries" | "numberRep">;
 
 const techniqueService = {
   createTechnique,
   putTechnique,
-  findTechniques
+  findTechniques,
+  deleteTechnique,
 };
 
 export { techniqueService };

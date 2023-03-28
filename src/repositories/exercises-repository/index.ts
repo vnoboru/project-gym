@@ -45,6 +45,14 @@ async function update(exercId: number, data: Prisma.exercisesUncheckedUpdateInpu
   });
 }
 
+async function remove(exercId: number) {
+  return prisma.exercises.delete({
+    where: {
+      id: exercId,
+    },
+  });
+}
+
 async function find() {
   return prisma.exercises.findMany();
 }
@@ -54,6 +62,7 @@ const exercisesRepository = {
   findByExercId,
   create,
   update,
+  remove,
   find,
 };
 

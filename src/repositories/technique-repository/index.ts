@@ -45,6 +45,14 @@ async function update(techniqueId: number, data: Prisma.techniqueUncheckedUpdate
   });
 }
 
+async function remove(techniqueId: number) {
+  return prisma.technique.delete({
+    where: {
+      id: techniqueId,
+    },
+  });
+}
+
 async function find() {
   return prisma.technique.findMany();
 }
@@ -53,6 +61,7 @@ const techniqueRepository = {
   findByTechniqueId,
   create,
   update,
+  remove,
   find,
 };
 

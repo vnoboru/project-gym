@@ -57,3 +57,18 @@ export async function techniquesGet(req: Request, res: Response) {
     return res.sendStatus(httpStatus.BAD_REQUEST);
   }
 }
+
+export async function techniqueDelete(req: Request, res: Response) {
+  const techniqueId = Number(req.params.techniqueId);
+
+  try {
+    const deleteTechnique = await techniqueService.deleteTechnique(techniqueId);
+    return res.status(httpStatus.OK).send(deleteTechnique);
+  } catch (error) {
+    if (error.name === "NotFoundExerciseError") {
+      return res.status(httpStatus.NOT_FOUND).send(error.message);
+    }
+
+    return res.status(httpStatus.BAD_REQUEST).send(error);
+  }
+}

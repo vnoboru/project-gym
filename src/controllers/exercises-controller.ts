@@ -51,3 +51,18 @@ export async function exercisesGet(req: Request, res: Response) {
     return res.sendStatus(httpStatus.BAD_REQUEST);
   }
 }
+
+export async function exerciseDelete(req: Request, res: Response) {
+  const exercId = Number(req.params.exercId);
+
+  try {
+    const deleteExerc = await exercisesService.deleteExercise(exercId);
+    return res.status(httpStatus.OK).send(deleteExerc);
+  } catch (error) {
+    if (error.name === "NotFoundExerciseError") {
+      return res.status(httpStatus.NOT_FOUND).send(error.message);
+    }
+
+    return res.status(httpStatus.BAD_REQUEST).send(error);
+  }
+}

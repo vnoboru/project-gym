@@ -3,7 +3,7 @@ import exercisesRepository from "@/repositories/exercises-repository";
 import { exercises } from "@prisma/client";
 import lodash from "lodash";
 
-export async function createExercise({ nameExerc, bodyPart, classification }: CreateExercParams): Promise<exercises> {
+async function createExercise({ nameExerc, bodyPart, classification }: CreateExercParams): Promise<exercises> {
   await validateUniqueExerc(nameExerc);
 
   return exercisesRepository.create({
@@ -22,7 +22,7 @@ async function validateUniqueExerc(nameExerc: string) {
   }
 }
 
-export async function putExercise(
+async function putExercise(
   exercId: number,
   { nameExerc, bodyPart, classification }: CreateExercParams,
 ): Promise<exercises> {
@@ -47,11 +47,24 @@ async function findExercises() {
   return listExercices;
 }
 
+export async function deleteExercise(exercId: number) {
+  const exercise = await exercisesRepository.findByExercId(exercId);
+
+  if (!exercise) {
+    throw notFoundError();
+  }
+
+  const resultExercise = await exercisesRepository.remove(exercId);
+
+  return resultExercise;
+}
+
 export type CreateExercParams = Pick<exercises, "nameExerc" | "bodyPart" | "classification">;
 const exercisesService = {
   createExercise,
   putExercise,
   findExercises,
+  deleteExercise,
 };
 
 export default exercisesService;
