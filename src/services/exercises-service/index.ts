@@ -32,7 +32,12 @@ async function putExercise(
     throw notFoundError();
   }
 
-  const resultExercise = await exercisesRepository.update(exercId, { nameExerc, bodyPart, classification });
+  const resultExercise = await exercisesRepository.update(exercId, {
+    nameExerc,
+    nameExercAc: lodash.deburr(nameExerc),
+    bodyPart,
+    classification,
+  });
 
   return resultExercise;
 }

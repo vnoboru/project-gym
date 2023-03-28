@@ -27,7 +27,10 @@ async function putTraining(trainingId: number, nameTraining: string): Promise<tr
     throw notFoundError();
   }
 
-  const resultExercise = await trainingRepository.update(trainingId, { nameTraining });
+  const resultExercise = await trainingRepository.update(trainingId, {
+    nameTraining,
+    nameTrainingAc: lodash.deburr(nameTraining),
+  });
 
   return resultExercise;
 }

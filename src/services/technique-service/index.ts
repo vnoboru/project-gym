@@ -40,6 +40,7 @@ async function putTechnique(
 
   const resultExercise = await techniqueRepository.update(techniqueId, {
     nameTechnique,
+    nameTechniqueAc: lodash.deburr(nameTechnique),
     description,
     numberSeries,
     numberRep,
