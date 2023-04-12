@@ -10,6 +10,20 @@ datasource db {
   extensions = [citext]
 }
 
+model user {
+  id       Int       @id @default(autoincrement())
+  email    String    @unique @db.VarChar(255)
+  password String    @db.VarChar(255)
+  session  session[]
+}
+
+model session {
+  id     Int    @id @default(autoincrement())
+  userId Int
+  token  String
+  user   user   @relation(fields: [userId], references: [id])
+}
+
 model exercises {
   id             Int     @id @default(autoincrement())
   nameExerc      String  @unique @db.Citext

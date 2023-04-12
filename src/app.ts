@@ -3,6 +3,7 @@ import { loadEnv } from "@/config/env";
 import { exercisesRouter, listRouter, techniqueRouter, trainingRouter } from "@/routers";
 import cors from "cors";
 import express, { Express } from "express";
+import { authRouter } from "./routers/auth-router";
 
 loadEnv();
 
@@ -12,6 +13,7 @@ app
   .use(cors())
   .use(express.json())
   .get("/test", (_req, res) => res.send("OK!"))
+  .use("/", authRouter)
   .use("/exercise", exercisesRouter)
   .use("/technique", techniqueRouter)
   .use("/list", listRouter)
