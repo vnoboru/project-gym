@@ -57,6 +57,14 @@ async function find() {
   return prisma.exercises.findMany();
 }
 
+async function findByBodyPart(bodyPart: string) {
+  return prisma.exercises.findMany({
+    where: {
+      bodyPart,
+    },
+  });
+}
+
 const exercisesRepository = {
   findByNameExerc,
   findByExercId,
@@ -64,6 +72,7 @@ const exercisesRepository = {
   update,
   remove,
   find,
+  findByBodyPart,
 };
 
 export default exercisesRepository;

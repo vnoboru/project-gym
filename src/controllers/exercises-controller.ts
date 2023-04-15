@@ -40,7 +40,8 @@ export async function exercisePut(req: Request, res: Response) {
 
 export async function exercisesGet(req: Request, res: Response) {
   try {
-    const listExercises = await exercisesService.findExercises();
+    const { bodyPart } = req.query;
+    const listExercises = await exercisesService.findExercises(bodyPart as string);
 
     return res.status(httpStatus.OK).send(listExercises);
   } catch (error) {

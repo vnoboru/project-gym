@@ -3,19 +3,13 @@ import { Request, Response } from "express";
 import httpStatus from "http-status";
 
 export async function listPost(req: Request, res: Response) {
-  const { idExerc, idTechnique, daysTraining, idTraining } = req.body;
+  const lists = req.body;
   try {
-    const list = await listService.createList(idExerc, idTechnique, daysTraining, idTraining);
+    const createdLists = await listService.createList(lists);
 
-    return res.status(httpStatus.CREATED).json({
-      id: list.id,
-    });
+    return res.status(httpStatus.CREATED).json(createdLists);
   } catch (error) {
-    if (error.name === "ConflictError") {
-      return res.status(httpStatus.CONFLICT).send(error.message);
-    }
-
-    return res.status(httpStatus.BAD_REQUEST).send(error.message);
+    return res.status(httpStatus.BAD_REQUEST);
   }
 }
 

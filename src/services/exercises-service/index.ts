@@ -42,8 +42,10 @@ async function putExercise(
   return resultExercise;
 }
 
-async function findExercises() {
-  const listExercices = await exercisesRepository.find();
+async function findExercises(bodyPart?: string) {
+  const listExercices = bodyPart
+    ? await exercisesRepository.findByBodyPart(bodyPart)
+    : await exercisesRepository.find();
 
   if (!listExercices) {
     throw notFoundError();

@@ -46,7 +46,8 @@ export async function techniquePut(req: Request, res: Response) {
 
 export async function techniquesGet(req: Request, res: Response) {
   try {
-    const listTechniques = await techniqueService.findTechniques();
+    const { nameTechnique } = req.query;
+    const listTechniques = await techniqueService.findTechniques(nameTechnique as string);
 
     return res.status(httpStatus.OK).send(listTechniques);
   } catch (error) {

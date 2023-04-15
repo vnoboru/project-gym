@@ -21,7 +21,7 @@ async function createTechnique({
 }
 
 async function validateUniqueNameTechnique(nameTechnique: string) {
-  const techniqueWithSameName = await techniqueRepository.findByNameTechnique(nameTechnique);
+  const techniqueWithSameName = await techniqueRepository.findBySameName(nameTechnique);
 
   if (techniqueWithSameName) {
     throw conflictError();
@@ -49,8 +49,10 @@ async function putTechnique(
   return resultExercise;
 }
 
-async function findTechniques() {
-  const listTechniques = await techniqueRepository.find();
+async function findTechniques(nameTechnique?: string) {
+  const listTechniques = nameTechnique
+    ? await techniqueRepository.findByNameTechnique(nameTechnique)
+    : await techniqueRepository.find();
 
   if (!listTechniques) {
     throw notFoundError();

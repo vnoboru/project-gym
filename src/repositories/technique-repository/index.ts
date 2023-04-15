@@ -2,7 +2,7 @@ import { prisma } from "@/config";
 import { Prisma } from "@prisma/client";
 import lodash from "lodash";
 
-async function findByNameTechnique(nameTechnique: string, select?: Prisma.techniqueSelect) {
+async function findBySameName(nameTechnique: string, select?: Prisma.techniqueSelect) {
   const params: Prisma.techniqueFindUniqueOrThrowArgs = {
     where: {
       nameTechniqueAc: lodash.deburr(nameTechnique),
@@ -56,13 +56,23 @@ async function remove(techniqueId: number) {
 async function find() {
   return prisma.technique.findMany();
 }
+
+async function findByNameTechnique(nameTechnique: string) {
+  return prisma.technique.findMany({
+    where: {
+      nameTechnique,
+    },
+  });
+}
+
 const techniqueRepository = {
-  findByNameTechnique,
+  findBySameName,
   findByTechniqueId,
   create,
   update,
   remove,
   find,
+  findByNameTechnique,
 };
 
 export default techniqueRepository;

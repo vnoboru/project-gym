@@ -1,19 +1,9 @@
 import { notFoundError } from "@/errors";
 import listRepository from "@/repositories/list-repository";
-import { list } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 
-async function createList(
-  idExerc: number,
-  idTechnique: number,
-  daysTraining: number,
-  idTraining: number,
-): Promise<list> {
-  return listRepository.create({
-    idExerc,
-    idTechnique,
-    daysTraining,
-    idTraining,
-  });
+async function createList(lists: Prisma.listUncheckedCreateInput[]) {
+  return Promise.all(lists.map(listRepository.create));
 }
 
 async function findList(daysTraining: number) {
