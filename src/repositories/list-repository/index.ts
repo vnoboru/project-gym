@@ -21,10 +21,25 @@ async function create(data: Prisma.listUncheckedCreateInput) {
   });
 }
 
+async function findAll() {
+  return prisma.list.findMany({
+    include: {
+      training: true,
+      exercices: true,
+      technique: true,
+    },
+  });
+}
+
 async function find(daysTraining: number) {
   return prisma.list.findMany({
     where: {
       daysTraining: daysTraining,
+    },
+    include: {
+      training: true,
+      exercices: true,
+      technique: true,
     },
   });
 }
@@ -39,6 +54,7 @@ async function remove(listId: number) {
 
 const listRepository = {
   findByListId,
+  findAll,
   find,
   create,
   remove,

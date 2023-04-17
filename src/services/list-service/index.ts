@@ -6,6 +6,16 @@ async function createList(lists: Prisma.listUncheckedCreateInput[]) {
   return Promise.all(lists.map(listRepository.create));
 }
 
+async function findAllList() {
+  const list = await listRepository.findAll();
+
+  if (!list) {
+    throw notFoundError();
+  }
+
+  return list;
+}
+
 async function findList(daysTraining: number) {
   const list = await listRepository.find(daysTraining);
 
@@ -28,6 +38,7 @@ async function deleteList(listId: number) {
   return resultList;
 }
 const listService = {
+  findAllList,
   findList,
   createList,
   deleteList,

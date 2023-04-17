@@ -12,6 +12,19 @@ export async function listPost(req: Request, res: Response) {
     return res.status(httpStatus.BAD_REQUEST);
   }
 }
+export async function listAllGet(req: Request, res: Response) {
+  try {
+    const list = await listService.findAllList();
+
+    return res.status(httpStatus.OK).send(list);
+  } catch (error) {
+    if (error.name === "NotFoundError") {
+      return res.status(httpStatus.NOT_FOUND).send(error.message);
+    }
+
+    return res.sendStatus(httpStatus.BAD_REQUEST);
+  }
+}
 
 export async function listGet(req: Request, res: Response) {
   const daysTraining = Number(req.query.daysTraining);
